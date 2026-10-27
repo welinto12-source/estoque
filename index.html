@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#16324f">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>Estoque Distribuidora</title>
+<style>
+:root{--bg:#f3f5f8;--card:#fff;--tx:#15202b;--mut:#5d6b7a;--bd:#dbe1e8;--pri:#16324f;--ac:#f0a30a;--acx:#15202b;--wa:#1faa59;--rd:#c62828;--chip:#e8eef5;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#0f1720;--card:#192433;--tx:#eef2f6;--mut:#9aa8b8;--bd:#2a394c;--pri:#0b2036;--chip:#25364b;--rd:#ff6b6b}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#0f1720;--card:#192433;--tx:#eef2f6;--mut:#9aa8b8;--bd:#2a394c;--pri:#0b2036;--chip:#25364b;--rd:#ff6b6b}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.4 "Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--pri);z-index:30}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--pri);color:#fff;display:flex;align-items:center;gap:8px;padding:12px 14px;border-bottom:4px solid var(--ac)}
+header h1{font-size:19px;margin:0;font-weight:800;flex:1}
+#voltar{background:rgba(255,255,255,.14);color:#fff;border:0;border-radius:10px;font-size:15px;font-weight:700;padding:9px 12px;display:none}
+main{max-width:640px;margin:0 auto;padding:14px 14px 120px}
+button{font:inherit;cursor:pointer}
+.big{display:flex;align-items:center;gap:14px;width:100%;border:0;border-radius:16px;padding:20px 18px;margin-bottom:12px;font-size:19px;font-weight:800;text-align:left;background:var(--card);color:var(--tx);border:2px solid var(--bd)}
+.big small{display:block;font-weight:500;font-size:14px;color:var(--mut)}
+.big .ic{font-size:30px;width:46px;text-align:center}
+.big.pri{background:var(--ac);color:var(--acx);border-color:var(--ac)}.big.pri small{color:#3a2b00}
+.big.wa{background:var(--wa);color:#fff;border-color:var(--wa)}.big.wa small{color:#e6ffef}
+.hello{margin:6px 2px 16px;color:var(--mut)}
+input,select{width:100%;font:inherit;padding:13px 12px;border:2px solid var(--bd);border-radius:12px;background:var(--card);color:var(--tx)}
+input:focus,select:focus,button:focus-visible{outline:3px solid var(--ac);outline-offset:1px}
+label{display:block;font-weight:700;margin:14px 2px 6px}
+.busca{position:sticky;top:calc(env(safe-area-inset-top,0px) + 62px);z-index:10;background:var(--bg);padding:4px 0 10px}
+.item{display:flex;gap:12px;background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:12px;margin-bottom:10px}
+.foto{width:72px;height:72px;border-radius:12px;background:var(--chip);flex:none;object-fit:cover;display:flex;align-items:center;justify-content:center;font-size:28px;color:var(--mut)}
+.item .tt{flex:1;min-width:0}
+.item b{font-size:18px;display:block}
+.item .sb{color:var(--mut);font-size:14px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.chip{background:var(--chip);border-radius:999px;padding:5px 11px;font-weight:700;font-size:14px}
+.chip.zero{opacity:.55;font-weight:500}
+.acts{display:flex;gap:8px}
+.acts button{flex:1;border:2px solid var(--bd);background:transparent;color:var(--tx);border-radius:10px;padding:8px;font-weight:700}
+.acts .ex{color:var(--rd)}
+.vazio{text-align:center;color:var(--mut);padding:36px 10px}
+.bar{position:fixed;left:0;right:0;bottom:0;padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px));background:var(--bg);border-top:1px solid var(--bd);z-index:15}
+.bar>button,.btn{display:block;width:100%;max-width:612px;margin:0 auto;border:0;border-radius:14px;padding:16px;font-size:17px;font-weight:800;background:var(--wa);color:#fff;text-align:center;text-decoration:none}
+.btn.sec{background:var(--chip);color:var(--tx)}.btn.ac{background:var(--ac);color:var(--acx)}
+.row{display:flex;gap:10px}.row>*{flex:1}
+.fotobox{display:flex;gap:12px;align-items:center}
+.fotobox .foto{width:96px;height:96px}
+.fotobox .col{flex:1;display:flex;flex-direction:column;gap:8px}
+.fotobox .col button{border:2px solid var(--bd);background:var(--card);color:var(--tx);border-radius:10px;padding:11px;font-weight:700}
+.st{display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:8px 10px;margin-top:8px}
+.st span{flex:1;font-weight:700}
+.st button{width:46px;height:46px;border-radius:12px;border:0;background:var(--chip);color:var(--tx);font-size:24px;font-weight:800}
+.st input{width:84px;text-align:center;font-weight:800;font-size:20px;padding:9px 4px}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:40;display:flex;align-items:flex-end;justify-content:center}
+.sheet{background:var(--bg);width:100%;max-width:640px;max-height:90vh;overflow:auto;border-radius:20px 20px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom,0px))}
+.sheet h2{margin:0 0 10px;font-size:20px}
+pre{white-space:pre-wrap;word-break:break-word;background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:12px;font:15px/1.5 inherit;max-height:38vh;overflow:auto;margin:10px 0 14px}
+.seg{display:flex;gap:6px;background:var(--chip);padding:4px;border-radius:12px}
+.seg button{flex:1;border:0;border-radius:9px;padding:10px 6px;background:transparent;color:var(--tx);font-weight:700;font-size:14px}
+.seg button.on{background:var(--ac);color:var(--acx)}
+.sheet .btn{margin-top:10px;max-width:none}
+#toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%);background:var(--tx);color:var(--bg);padding:11px 16px;border-radius:12px;font-weight:700;z-index:50;display:none;max-width:90%;text-align:center}
+</style>
+</head>
+<body>
+<header><button id="voltar" aria-label="Voltar">‹ Voltar</button><h1 id="titulo">Estoque Distribuidora</h1></header>
+<main id="app"></main>
+<div id="modal"></div>
+<div id="toast" role="status"></div>
+<input type="file" id="fCam" accept="image/*" capture="environment" hidden>
+<input type="file" id="fGal" accept="image/*" hidden>
+<input type="file" id="fRes" accept=".json,application/json" hidden>
+<script>
+var $=function(s){return document.querySelector(s)};
+var db=null,items=[],view='home',q='',edit=null,foto='',escopo='tudo',persistente=true;
+var EMB=['Lata','Litrinho','600 ml','Litrão','Garrafa retornável','Long neck','PET 2 L','Outro'];
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function norm(s){return String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim()}
+function toast(m){var t=$('#toast');t.textContent=m;t.style.display='block';clearTimeout(toast.h);toast.h=setTimeout(function(){t.style.display='none'},2600)}
+
+/* ---------- Banco de dados (IndexedDB) ---------- */
+function abrirDB(){return new Promise(function(res){try{var r=indexedDB.open('estoque-distribuidora',1);r.onupgradeneeded=function(){r.result.createObjectStore('p',{keyPath:'id'})};r.onsuccess=function(){db=r.result;res(true)};r.onerror=function(){res(false)}}catch(e){res(false)}})}
+function lerTudo(){return new Promise(function(res){if(!db)return res([]);try{var t=db.transaction('p').objectStore('p').getAll();t.onsuccess=function(){res(t.result||[])};t.onerror=function(){res([])}}catch(e){res([])}})}
+function gravar(o){return new Promise(function(res){if(!db)return res(false);try{var t=db.transaction('p','readwrite');t.objectStore('p').put(o);t.oncomplete=function(){res(true)};t.onerror=function(){res(false)}}catch(e){res(false)}})}
+function apagar(id){return new Promise(function(res){if(!db)return res(false);try{var t=db.transaction('p','readwrite');t.objectStore('p').delete(id);t.oncomplete=function(){res(true)};t.onerror=function(){res(false)}}catch(e){res(false)}})}
+
+/* ---------- Texto do estoque ---------- */
+function nomeCompleto(p){return (p.nome+' '+(p.embalagem||'')).trim()}
+function plural(n,s,p){return n+' '+(n===1?s:p)}
+function qtdTexto(p){var a=[];if(p.caixas>0)a.push(plural(p.caixas,'caixa','caixas'));if(p.fardos>0)a.push(plural(p.fardos,'fardo','fardos'));if(p.unidades>0)a.push(plural(p.unidades,'unidade','unidades'));
+ if(!a.length)return 'sem estoque';return a.length===1?a[0]:a.slice(0,-1).join(', ')+' e '+a[a.length-1]}
+function filtrar(){var n=norm(q);var l=items.slice().sort(function(a,b){return norm(nomeCompleto(a)).localeCompare(norm(nomeCompleto(b)))});
+ if(!n)return l;return l.filter(function(p){return norm(p.nome+' '+p.marca+' '+p.embalagem).indexOf(n)>-1})}
+function montarMsg(lista){return 'ESTOQUE DA DISTRIBUIDORA\n\n'+lista.map(function(p){return nomeCompleto(p)+': '+qtdTexto(p)}).join('\n')}
+
+/* ---------- Telas ---------- */
+function ir(v,x){view=v;edit=x||null;if(v==='form')foto=x?(x.foto||''):'';if(v==='home')q='';render();window.scrollTo(0,0)}
+function render(){
+ var tit={home:'Estoque Distribuidora',lista:'Consultar estoque',busca:'Pesquisar produto',form:edit?'Editar produto':'Cadastrar produto'}[view];
+ $('#titulo').textContent=tit;$('#voltar').style.display=view==='home'?'none':'block';
+ var a=$('#app');
+ if(view==='home'){
+  a.innerHTML='<p class="hello">'+(items.length?plural(items.length,'produto cadastrado','produtos cadastrados'):'Nenhum produto cadastrado ainda.')+'</p>'+
+  '<button class="big pri" data-go="form"><span class="ic">➕</span><span>Cadastrar produto<small>Nome, embalagem, foto e quantidades</small></span></button>'+
+  '<button class="big" data-go="lista"><span class="ic">📦</span><span>Consultar estoque<small>Ver, editar e atualizar a contagem</small></span></button>'+
+  '<button class="big" data-go="busca"><span class="ic">🔎</span><span>Pesquisar produto<small>Buscar por nome ou marca</small></span></button>'+
+  '<button class="big wa" data-act="wa"><span class="ic">💬</span><span>Enviar estoque pelo WhatsApp<small>Escolha o contato e envie</small></span></button>'+
+  '<div class="row"><button class="btn sec" data-act="bk">💾 Salvar backup</button><button class="btn sec" data-act="rs">📂 Restaurar backup</button></div>'+
+  (persistente?'':'<p class="hello">⚠ Este navegador não permite salvar dados. Os cadastros serão perdidos ao fechar.</p>');
+ }else if(view==='lista'||view==='busca'){
+  a.innerHTML='<div class="busca"><input id="q" type="search" placeholder="Pesquisar por nome ou marca (ex.: Brahma)" value="'+esc(q)+'" autocomplete="off"></div><div id="lista"></div>'+
+  '<div class="bar"><button data-act="wa">💬 Enviar estoque pelo WhatsApp</button></div>';
+  desenharLista();if(view==='busca'&&!q)$('#q').focus();
+ }else{desenharForm()}
+}
+function desenharLista(){
+ var l=filtrar(),el=$('#lista');
+ if(!items.length){el.innerHTML='<div class="vazio">Nenhum produto cadastrado.<br><br><button class="btn ac" data-go="form">Cadastrar primeiro produto</button></div>';return}
+ if(!l.length){el.innerHTML='<div class="vazio">Nenhum produto encontrado para “'+esc(q)+'”.</div>';return}
+ el.innerHTML=l.map(function(p){
+  var f=p.foto?'<img class="foto" src="'+p.foto+'" alt="Foto de '+esc(p.nome)+'">':'<div class="foto">🍺</div>';
+  function ch(n,s,pl){return '<span class="chip'+(n>0?'':' zero')+'">'+plural(n,s,pl)+'</span>'}
+  return '<div class="item">'+f+'<div class="tt"><b>'+esc(p.nome)+'</b><div class="sb">'+esc(p.embalagem||'')+(p.marca?' · '+esc(p.marca):'')+'</div>'+
+  '<div class="chips">'+ch(p.caixas,'caixa','caixas')+ch(p.fardos,'fardo','fardos')+ch(p.unidades,'unidade','unidades')+'</div>'+
+  '<div class="acts"><button data-ed="'+p.id+'">Atualizar</button><button class="ex" data-ex="'+p.id+'">Excluir</button></div></div></div>'}).join('');
+}
+function stepper(id,rot,v){return '<div class="st"><span>'+rot+'</span><button type="button" data-st="'+id+'" data-d="-1" aria-label="Diminuir '+rot+'">−</button><input id="'+id+'" type="number" inputmode="numeric" min="0" value="'+v+'"><button type="button" data-st="'+id+'" data-d="1" aria-label="Aumentar '+rot+'">+</button></div>'}
+function desenharForm(){
+ var p=edit||{nome:'',marca:'',embalagem:'Lata',caixas:0,fardos:0,unidades:0};
+ var padrao=EMB.indexOf(p.embalagem)>-1&&p.embalagem!=='Outro';
+ $('#app').innerHTML='<label for="nome">Nome do produto</label><input id="nome" value="'+esc(p.nome)+'" placeholder="Ex.: Brahma" autocomplete="off">'+
+ '<label for="marca">Marca</label><input id="marca" list="marcas" value="'+esc(p.marca)+'" placeholder="Ex.: Ambev" autocomplete="off"><datalist id="marcas"><option>Ambev</option><option>Heineken</option><option>Petrópolis</option><option>Coca-Cola</option><option>Pepsi</option><option>Red Bull</option></datalist>'+
+ '<label for="emb">Tipo de embalagem</label><select id="emb">'+EMB.map(function(e){return '<option'+((padrao?p.embalagem===e:e==='Outro')?' selected':'')+'>'+e+'</option>'}).join('')+'</select>'+
+ '<input id="embo" style="margin-top:8px;display:'+(padrao?'none':'block')+'" placeholder="Digite a embalagem" value="'+(padrao?'':esc(p.embalagem))+'">'+
+ '<label>Foto do produto</label><div class="fotobox"><div id="prev" class="foto">🍺</div><div class="col"><button type="button" data-act="cam">📷 Tirar foto</button><button type="button" data-act="gal">🖼 Escolher da galeria</button><button type="button" data-act="rmfoto">Remover foto</button></div></div>'+
+ '<label>Quantidades (cada tipo é contado separadamente)</label>'+stepper('caixas','Caixas',p.caixas)+stepper('fardos','Fardos',p.fardos)+stepper('unidades','Unidades soltas',p.unidades)+
+ '<div style="height:18px"></div><button class="btn ac" data-act="salvar">Salvar produto</button>';
+ prev();
+}
+function prev(){var e=$('#prev');if(!e)return;e.innerHTML=foto?'<img src="'+foto+'" style="width:100%;height:100%;object-fit:cover;border-radius:12px" alt="Pré-visualização">':'🍺'}
+
+/* ---------- Foto: câmera ou galeria ---------- */
+function reduzir(file){return new Promise(function(res,rej){var u=URL.createObjectURL(file),im=new Image();
+ im.onload=function(){var m=520,r=Math.min(1,m/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*r);c.height=Math.round(im.height*r);c.getContext('2d').drawImage(im,0,0,c.width,c.height);URL.revokeObjectURL(u);res(c.toDataURL('image/jpeg',0.72))};
+ im.onerror=function(){URL.revokeObjectURL(u);rej()};im.src=u})}
+function aoEscolher(e){var f=e.target.files&&e.target.files[0];e.target.value='';if(!f)return;
+ reduzir(f).then(function(d){foto=d;prev();toast('Foto adicionada')}).catch(function(){toast('Não foi possível ler esta foto')})}
+$('#fCam').addEventListener('change',aoEscolher);$('#fGal').addEventListener('change',aoEscolher);
+
+/* ---------- Salvar / excluir ---------- */
+function num(id){var v=parseInt($('#'+id).value,10);return isNaN(v)||v<0?0:v}
+async function salvar(){
+ var nome=$('#nome').value.trim();if(!nome){toast('Digite o nome do produto');$('#nome').focus();return}
+ var emb=$('#emb').value;if(emb==='Outro')emb=$('#embo').value.trim();
+ var p={id:edit?edit.id:Date.now()+''+Math.floor(Math.random()*1000),nome:nome,marca:$('#marca').value.trim(),embalagem:emb,caixas:num('caixas'),fardos:num('fardos'),unidades:num('unidades'),foto:foto};
+ var ok=await gravar(p);
+ var i=items.findIndex(function(x){return x.id===p.id});if(i>-1)items[i]=p;else items.push(p);
+ toast(ok?'Produto salvo':'Atenção: não foi possível gravar no aparelho');
+ if(!ok)persistente=false;ir('lista')
+}
+function confirmar(msg,ok){$('#modal').innerHTML='<div class="modal"><div class="sheet"><h2>'+msg+'</h2><button class="btn" style="background:var(--rd)" data-act="sim">Sim, excluir</button><button class="btn sec" data-act="fechar">Cancelar</button></div></div>';confirmar.f=ok}
+
+/* ---------- WhatsApp ---------- */
+function abrirWA(){
+ if(!items.length){toast('Cadastre produtos antes de enviar');return}
+ escopo=(view!=='home'&&q.trim()&&filtrar().length)?'busca':'tudo';sheetWA()}
+function sheetWA(){
+ var tem=view!=='home'&&q.trim()&&filtrar().length;
+ var l=escopo==='busca'?filtrar():items.slice().sort(function(a,b){return norm(nomeCompleto(a)).localeCompare(norm(nomeCompleto(b)))});
+ var msg=montarMsg(l);sheetWA.msg=msg;
+ $('#modal').innerHTML='<div class="modal"><div class="sheet"><h2>Enviar pelo WhatsApp</h2>'+
+ (tem?'<div class="seg"><button data-esc="tudo" class="'+(escopo==='tudo'?'on':'')+'">Lista completa</button><button data-esc="busca" class="'+(escopo==='busca'?'on':'')+'">Só a pesquisa ('+filtrar().length+')</button></div>':'')+
+ '<pre>'+esc(msg)+'</pre><a class="btn" target="_blank" rel="noopener" href="https://wa.me/?text='+encodeURIComponent(msg)+'">Abrir WhatsApp e escolher contato</a>'+
+ '<button class="btn sec" data-act="copiar">Copiar texto</button><button class="btn sec" data-act="fechar">Fechar</button></div></div>'}
+function copiar(){var t=sheetWA.msg;
+ if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(function(){toast('Texto copiado')},fb)}else fb();
+ function fb(){var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy');toast('Texto copiado')}catch(e){toast('Não foi possível copiar')}a.remove()}}
+
+/* ---------- Eventos ---------- */
+document.addEventListener('click',function(e){
+ var t=e.target.closest('[data-go],[data-act],[data-ed],[data-ex],[data-st],[data-esc]');if(!t)return;
+ if(t.dataset.go)return ir(t.dataset.go);
+ if(t.dataset.ed)return ir('form',items.find(function(x){return x.id===t.dataset.ed}));
+ if(t.dataset.ex){var id=t.dataset.ex,p=items.find(function(x){return x.id===id});return confirmar('Excluir “'+esc(nomeCompleto(p))+'”?',async function(){await apagar(id);items=items.filter(function(x){return x.id!==id});$('#modal').innerHTML='';desenharLista();toast('Produto excluído')})}
+ if(t.dataset.st){var i=$('#'+t.dataset.st);i.value=Math.max(0,(parseInt(i.value,10)||0)+parseInt(t.dataset.d,10));return}
+ if(t.dataset.esc){escopo=t.dataset.esc;return sheetWA()}
+ var a=t.dataset.act;
+ if(a==='bk')backup();else if(a==='rs')$('#fRes').click();else if(a==='wa')abrirWA();else if(a==='fechar')$('#modal').innerHTML='';else if(a==='copiar')copiar();
+ else if(a==='salvar')salvar();else if(a==='cam')$('#fCam').click();else if(a==='gal')$('#fGal').click();
+ else if(a==='rmfoto'){foto='';prev()}else if(a==='sim'&&confirmar.f)confirmar.f();
+});
+document.addEventListener('input',function(e){
+ if(e.target.id==='q'){q=e.target.value;desenharLista()}
+});
+document.addEventListener('change',function(e){if(e.target.id==='emb')$('#embo').style.display=e.target.value==='Outro'?'block':'none'});
+$('#voltar').addEventListener('click',function(){ir(view==='form'?'lista':'home')});
+
+async function backup(){
+ var d=JSON.stringify({app:'estoque-distribuidora',v:1,produtos:items}),nome='backup-estoque-'+new Date().toISOString().slice(0,10)+'.json';
+ try{var f=new File([d],nome,{type:'application/json'});if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title:'Backup do estoque'});return}}catch(e){if(e&&e.name==='AbortError')return}
+ var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([d],{type:'application/json'}));a.download=nome;document.body.appendChild(a);a.click();a.remove();toast('Backup salvo em Downloads')}
+$('#fRes').addEventListener('change',async function(e){var f=e.target.files[0];e.target.value='';if(!f)return;
+ try{var o=JSON.parse(await f.text()),l=Array.isArray(o)?o:o.produtos;if(!Array.isArray(l))throw 0;var n=0;
+  for(var p of l){if(!p||!p.id||!p.nome)continue;p.caixas=+p.caixas||0;p.fardos=+p.fardos||0;p.unidades=+p.unidades||0;await gravar(p);var i=items.findIndex(function(x){return x.id===p.id});if(i>-1)items[i]=p;else items.push(p);n++}
+  toast(n+' produto(s) restaurado(s)');render()}catch(x){toast('Arquivo de backup inválido')}});
+(async function(){
+ persistente=await abrirDB();
+ items=await lerTudo();
+ try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist()}catch(e){}
+ render();
+ try{if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js")}catch(e){}
+})();
+</script>
+</body>
+</html>
